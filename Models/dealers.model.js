@@ -5,5 +5,4 @@ const dealerSchema = new mongoose.Schema({
     password: { type: String, required: true },
     inventoryID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Inventory" }],
   });
-  
   module.exports =mongoose.model("Dealer", dealerSchema);
