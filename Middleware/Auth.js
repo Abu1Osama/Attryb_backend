@@ -9,17 +9,31 @@ const authMiddleware = (req, res, next) => {
     if (token) {
       jwt.verify(token, SECRET, (err, decoded) => {
         if (err) {
-          res.status(401).send({ msg: "Please Login Again", error: "token not found", status: "invalidtoken" });
+          res
+            .status(401)
+            .send({
+              msg: "Please Login Again",
+              error: "token not found",
+              status: "invalidtoken",
+            });
         } else {
           req.body.dealerID = decoded.dealerID;
           next();
         }
       });
     } else {
-      res.status(401).send({ msg: "Please Login Again", error: "token not found", status: "notoken" });
+      res
+        .status(401)
+        .send({
+          msg: "Please Login Again",
+          error: "token not found",
+          status: "notoken",
+        });
     }
   } catch (error) {
-    res.status(500).send({ msg: "Internal Server Error", error, status: "error" });
+    res
+      .status(500)
+      .send({ msg: "Internal Server Error", error, status: "error" });
     console.log("error: ", error);
   }
 };
