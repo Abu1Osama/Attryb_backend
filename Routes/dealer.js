@@ -40,7 +40,7 @@ dealerRouter.post("/login", async (req, res) => {
       bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
           const token = jwt.sign({ dealerid: user._id }, SECRET);
-          res.send({ msg: "Login Success", token });
+          res.send({ msg: "Login Success", token,dealerId: user._id  });
         } else {
           console.log({ msg: "Invalid Password" });
           res.status(401).send({ msg: "Invalid Password", status: "invalidpassword" });
