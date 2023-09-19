@@ -1,13 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const connection = require("./Controller/db");
+const connectDB = require("./Controller/db");
 const inventoryRouter = require("./Routes/Inventory");
 const dealerRouter = require("./Routes/dealer");
 const oemRouter = require("./Routes/OEM_Specs");
 const authMiddleware = require("./Middleware/Auth");
 
 dotenv.config();
+connectDB()
 const app = express();
 
 app.use(cors());
@@ -20,12 +21,6 @@ app.use("/oemspec", authMiddleware, oemRouter);
 app.use("/inventory", authMiddleware, inventoryRouter);
 
 const port = process.env.PORT || 3000;
-app.listen(port, async () => {
-  try {
-    await connection;
-    console.log("Database connected");
-  } catch (error) {
-    console.log(error);
-  }
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
